@@ -257,124 +257,68 @@ sns.boxplot(x="processing_method", y="cupper_points", data=df).tick_params(axis=
 
 # #### Processing methods
 
-# In[29]:
+# ##### Wet process
+
+# In[58]:
 
 
-sns.boxplot(x="processing_method", y="aroma", data=df).tick_params(axis='x', rotation=90)
+corr = df[df['processing_method']=='Washed / Wet'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
+sns.heatmap(corr, annot=True)
+plt.show()
 
 
-# In[30]:
+# ##### Dry process
+
+# In[59]:
 
 
-sns.boxplot(x="processing_method", y="flavor", data=df).tick_params(axis='x', rotation=90)
+corr = df[df['processing_method']=='Natural / Dry'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
+sns.heatmap(corr, annot=True)
+plt.show()
 
 
-# In[31]:
-
-
-sns.boxplot(x="processing_method", y="aftertaste", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[32]:
-
-
-sns.boxplot(x="processing_method", y="acidity", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[33]:
-
-
-sns.boxplot(x="processing_method", y="body", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[34]:
-
-
-sns.boxplot(x="processing_method", y="balance", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[35]:
-
-
-sns.boxplot(x="processing_method", y="uniformity", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[36]:
-
-
-sns.boxplot(x="processing_method", y="clean_cup", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[37]:
-
-
-sns.boxplot(x="processing_method", y="sweetness", data=df).tick_params(axis='x', rotation=90)
-
-
-# There are no noticeable differences in characteristic scoring among different processing methods.
+# Dry processed beans have stronger correlation between uniformity and clean cup comparing to wet processed beans.
 
 # #### Origins
 
-# In[38]:
+# ##### Mexico
+
+# In[60]:
 
 
-sns.boxplot(x="country_of_origin", y="aroma", data=df).tick_params(axis='x', rotation=90)
+corr = df[df['country_of_origin']=='Mexico'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
+sns.heatmap(corr, annot=True)
+plt.show()
 
 
-# In[39]:
+# ##### Guatemala
+
+# In[61]:
 
 
-sns.boxplot(x="country_of_origin", y="flavor", data=df).tick_params(axis='x', rotation=90)
+corr = df[df['country_of_origin']=='Guatemala'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
+sns.heatmap(corr, annot=True)
+plt.show()
 
 
-# In[40]:
+# ##### Colombia
+
+# In[62]:
 
 
-sns.boxplot(x="country_of_origin", y="aftertaste", data=df).tick_params(axis='x', rotation=90)
+corr = df[df['country_of_origin']=='Colombia'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
+sns.heatmap(corr, annot=True)
+plt.show()
 
 
-# In[41]:
+# For Guatemalan beans, sweetness and clean cup have strong correlation(0.98).
+# 
+# For Mexican beans, sweetness and uniformity have weak to no correlation with other characteristics.
+# 
+# For Colombian beans, there are weaker correlations among characteristics.
+
+# In[ ]:
 
 
-sns.boxplot(x="country_of_origin", y="acidity", data=df).tick_params(axis='x', rotation=90)
 
 
-# In[42]:
-
-
-sns.boxplot(x="country_of_origin", y="body", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[43]:
-
-
-sns.boxplot(x="country_of_origin", y="balance", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[44]:
-
-
-sns.boxplot(x="country_of_origin", y="uniformity", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[45]:
-
-
-sns.boxplot(x="country_of_origin", y="clean_cup", data=df).tick_params(axis='x', rotation=90)
-
-
-# In[46]:
-
-
-sns.boxplot(x="country_of_origin", y="sweetness", data=df).tick_params(axis='x', rotation=90)
-
-
-# Coffee beans from United States have higher scoring in flavor, aftertaste and acidity.
-
-# In[47]:
-
-
-df[df['country_of_origin'] == 'United States']
-
-
-# Looking into region and farm name, those coffee beans are likely not harvested from the United States. However, in country partner are based in the United States. Likely those observations had country of origin parsed incorrectly.
