@@ -211,13 +211,13 @@ plt.show()
 
 # ### Categorical variables
 
-# In[24]:
+# In[22]:
 
 
 df.country_of_origin.unique()
 
 
-# In[25]:
+# In[23]:
 
 
 sns.set(rc={'figure.figsize':(11.7,8.27)})
@@ -226,7 +226,7 @@ sns.countplot(data = df, x = 'country_of_origin').tick_params(axis='x', rotation
 
 # Majority of the coffee beans from the dataset were from Mexico, Guatemala and Colombia.
 
-# In[26]:
+# In[24]:
 
 
 sns.boxplot(x="country_of_origin", y="cupper_points", data=df).tick_params(axis='x', rotation=90)
@@ -234,7 +234,7 @@ sns.boxplot(x="country_of_origin", y="cupper_points", data=df).tick_params(axis=
 
 # Coffee beans from Ethiopia and United States have higher cupping points than coffee beans from other origins. From my personal experience, Ethiopia coffee beans usually have stronger and distinct aroma, eg. Yirgacheffe and Worka Sakaro.
 
-# In[27]:
+# In[25]:
 
 
 sns.countplot(data = df, x = 'processing_method').tick_params(axis='x', rotation=90)
@@ -242,7 +242,7 @@ sns.countplot(data = df, x = 'processing_method').tick_params(axis='x', rotation
 
 # Majority of the coffee beans from the dataset were washed/wet processed.
 
-# In[28]:
+# In[26]:
 
 
 sns.boxplot(x="processing_method", y="cupper_points", data=df).tick_params(axis='x', rotation=90)
@@ -259,7 +259,7 @@ sns.boxplot(x="processing_method", y="cupper_points", data=df).tick_params(axis=
 
 # ##### Wet process
 
-# In[58]:
+# In[27]:
 
 
 corr = df[df['processing_method']=='Washed / Wet'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
@@ -269,7 +269,7 @@ plt.show()
 
 # ##### Dry process
 
-# In[59]:
+# In[28]:
 
 
 corr = df[df['processing_method']=='Natural / Dry'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
@@ -277,48 +277,30 @@ sns.heatmap(corr, annot=True)
 plt.show()
 
 
-# Dry processed beans have stronger correlation between uniformity and clean cup comparing to wet processed beans.
-
-# #### Origins
-
-# ##### Mexico
-
-# In[60]:
-
-
-corr = df[df['country_of_origin']=='Mexico'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
-sns.heatmap(corr, annot=True)
-plt.show()
-
-
-# ##### Guatemala
-
-# In[61]:
-
-
-corr = df[df['country_of_origin']=='Guatemala'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
-sns.heatmap(corr, annot=True)
-plt.show()
-
-
-# ##### Colombia
-
-# In[62]:
-
-
-corr = df[df['country_of_origin']=='Colombia'][['aroma', 'flavor', 'aftertaste', 'acidity','body','balance','uniformity','clean_cup','sweetness']].corr()
-sns.heatmap(corr, annot=True)
-plt.show()
-
-
-# For Guatemalan beans, sweetness and clean cup have strong correlation(0.98).
+# Dry processed beans have stronger correlation between uniformity and clean cup comparing to wet processed beans. 
 # 
-# For Mexican beans, sweetness and uniformity have weak to no correlation with other characteristics.
-# 
-# For Colombian beans, there are weaker correlations among characteristics.
+# Let's zoom into those two variables below:
 
-# In[ ]:
+# In[44]:
 
 
+sns.kdeplot(df[df['processing_method']=='Washed / Wet']['clean_cup'],label='clean cup')
+sns.kdeplot(df[df['processing_method']=='Washed / Wet']['uniformity'], label='uniformity')
+plt.title('Washed / Wet Process')
+plt.xlabel('score')
+plt.legend()
+plt.show()
 
 
+# In[43]:
+
+
+sns.kdeplot(df[df['processing_method']=='Natural / Dry']['clean_cup'], label='clean cup')
+sns.kdeplot(df[df['processing_method']=='Natural / Dry']['uniformity'], label='uniformity')
+plt.title('Natural / Dry Process')
+plt.xlabel('score')
+plt.legend()
+plt.show()
+
+
+# Both processes have similar distributions for clean cup, but washed/wet process has more fluctuations in uniformity while natural/dry process has more stable distribution, which matches the distribution of clean cup.
